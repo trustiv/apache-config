@@ -1,0 +1,36 @@
+Apache configuration for HP Demo Simple apache2 (w32) config and app for demonstrating load balancing tags
+
+This is a the config for the apache on a W32 instance, includes the .so modules to support the LoadBalancer fconfig. apache config set to build in C:\apache24 \bin \conf \modules ...
+
+Load C:\data\apache-config\ 
+	conf\ 
+		site1.conf 
+		site2.conf 
+		site3.conf
+		loadbalancer.conf 
+	site-1\ 
+	site-2\ 
+	site-3#
+	default-site\
+
+Directives to change if paths change: site1.conf & site2.conf have directives:
+
+Directory \data\site?
+
+and
+
+ErrorLog \data\apache-config\logs\site?.log CustomLog \data\apache-config\logs\site?_access.log common
+
+LoadBalancer.conf contains: ErrorLog \data\apache-config\logs\mycluster.log CustomLog \data\apache-config\logs\mycluster_access.log common
+
+These need to be changed to their absolute paths.
+
+The main apache2 config file in "apache install directory"\conf\httpd.conf ServerRoot "\Apache24"
+and 
+
+include c:\data\apache-config\conf\*.conf
+
+which need changing the their new install absolute paths.
+
+
+Note: Downloading the .msi apache2 pachage was found to not include all of the files of the proxy_mod needed to make the solution work. By all means try this. Also linux supporters can use the base config to set up a linux scenario. Mind that the relevant modules are correctly specified and loaded into the apache config
